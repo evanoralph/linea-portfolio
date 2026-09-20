@@ -125,41 +125,90 @@
 
   <!-- ============ 04 · PROCESS ============ -->
   <section id="process" class="section">
-    <div class="wrap">
-      <div class="process-head">
+    <div class="wrap process-wrap">
+      <div class="process-intro">
         <h2 class="big">Process</h2>
-        <p>The same five stages, from first sketch to handover, on every house we design.</p>
+        <p>Five stages from first sketch to handover, the same on every house we design.</p>
       </div>
-      <div class="process-row"><span class="process-num">01</span><h3>Brief</h3><p>We start by understanding the site, the budget, and how you actually want to live in the space, before a single line is drawn.</p></div>
-      <div class="process-row"><span class="process-num">02</span><h3>Concept</h3><p>Early sketches and massing studies test a handful of directions against the site's light, wind and views.</p></div>
-      <div class="process-row"><span class="process-num">03</span><h3>Documentation</h3><p>The chosen concept becomes a full construction set, coordinated with the structural and services engineers.</p></div>
-      <div class="process-row"><span class="process-num">04</span><h3>Approval</h3><p>We manage the planning and building consent process, including any variations or conditions along the way.</p></div>
-      <div class="process-row"><span class="process-num">05</span><h3>Construction</h3><p>We stay involved through the build, working alongside the builder to keep the design intact as it's constructed.</p></div>
+      <div class="process-stage" data-process-stage>
+        <div class="process-visual">
+          <img
+            id="processImg"
+            src="assets/process/process-brief.webp"
+            width="1152"
+            height="864"
+            alt="Site survey, notes and material samples from an early project briefing"
+            data-process-img>
+        </div>
+        <div class="process-rail">
+          <div class="process-steps" role="tablist" aria-label="Design stages" data-process-tabs>
+            <button type="button" role="tab" id="process-tab-0" class="process-step is-active" aria-selected="true" aria-controls="process-panel" tabindex="0" data-step="0">
+              <span class="process-step-num">01</span><span class="process-step-label">Brief</span>
+            </button>
+            <button type="button" role="tab" id="process-tab-1" class="process-step" aria-selected="false" aria-controls="process-panel" tabindex="-1" data-step="1">
+              <span class="process-step-num">02</span><span class="process-step-label">Concept</span>
+            </button>
+            <button type="button" role="tab" id="process-tab-2" class="process-step" aria-selected="false" aria-controls="process-panel" tabindex="-1" data-step="2">
+              <span class="process-step-num">03</span><span class="process-step-label">Documentation</span>
+            </button>
+            <button type="button" role="tab" id="process-tab-3" class="process-step" aria-selected="false" aria-controls="process-panel" tabindex="-1" data-step="3">
+              <span class="process-step-num">04</span><span class="process-step-label">Approval</span>
+            </button>
+            <button type="button" role="tab" id="process-tab-4" class="process-step" aria-selected="false" aria-controls="process-panel" tabindex="-1" data-step="4">
+              <span class="process-step-num">05</span><span class="process-step-label">Construction</span>
+            </button>
+          </div>
+          <div class="process-panel" id="process-panel" role="tabpanel" aria-labelledby="process-tab-0" data-process-panel>
+            <h3 data-process-title>Brief</h3>
+            <p data-process-body>We start by understanding the site, the budget, and how you want to live, before a single line is drawn.</p>
+          </div>
+        </div>
+      </div>
       <span class="ghost" aria-hidden="true">04</span>
     </div>
   </section>
 
   <!-- ============ CONTACT ============ -->
   <section id="contact" class="section">
-    <div class="wrap contact-grid">
+    <div class="wrap contact-wrap">
       <h2 class="big">Start a<br>project</h2>
-      <div>
-        <p>Tell us about your site and what you're hoping to build. We take on a small number of houses a year, so an early conversation helps.</p>
-        <a class="contact-email" href="mailto:hello@linea-studio.example">hello@linea-studio.example</a>
-        <div class="contact-details">
-          <a href="tel:+61355550134">+61 3 5555 0134</a>
-          <span>Based in Melbourne, working across the state</span>
-        </div>
+      <p class="contact-lead">Tell us about your site and what you hope to build. We take on a small number of houses a year, so an early conversation helps.</p>
+      <a class="contact-email" href="mailto:hello@linea-studio.example">hello@linea-studio.example</a>
+      <div class="contact-details">
+        <a href="tel:+61355550134">+61 3 5555 0134</a>
+        <span>Based in Melbourne, working across the state</span>
       </div>
+      <ul class="contact-include">
+        <li>
+          <strong>Site</strong>
+          <span>Address, lot constraints, and any photos or survey you already have.</span>
+        </li>
+        <li>
+          <strong>Brief</strong>
+          <span>How you want to live in the house, and what matters most on this project.</span>
+        </li>
+        <li>
+          <strong>Timing</strong>
+          <span>Rough start window and whether you already have a builder in mind.</span>
+        </li>
+      </ul>
     </div>
   </section>
 
 </main>
 
 <footer>
-  <div class="wrap footer-row">
-    <span>Linea Architecture Studio © 2026</span>
-    <ul class="footer-links"><li><a href="#">Instagram</a></li><li><a href="#">Houzz</a></li></ul>
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="#studio">Studio</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="footer-row">
+      <span>Linea Architecture Studio © 2026</span>
+      <ul class="footer-links"><li><a href="#">Instagram</a></li><li><a href="#">Houzz</a></li></ul>
+    </div>
   </div>
 </footer>
 

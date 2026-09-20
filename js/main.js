@@ -243,6 +243,157 @@ sizeCanvas(); warm(0);
 (function waitFirst(){ if (nearestReady(Math.round(pos))){ document.getElementById('filmLoading').style.display = 'none'; draw(true); } else setTimeout(waitFirst, 50); })();
 setHouse(0); onScroll();
 
+/* ---------- process stage ---------- */
+(function initProcess(){
+  var root = document.getElementById('process');
+  if (!root) return;
+
+  var STEPS = [
+    {
+      num:'01', title:'Brief',
+      body:'We start by understanding the site, the budget, and how you want to live, before a single line is drawn.',
+      src:'assets/process/process-brief.webp',
+      alt:'Site survey, notes and material samples from an early project briefing'
+    },
+    {
+      num:'02', title:'Concept',
+      body:'Early sketches and massing studies test a handful of directions against the site\'s light, wind and views.',
+      src:'assets/process/process-concept.webp',
+      alt:'Graphite massing sketches on trace paper over a site plan'
+    },
+    {
+      num:'03', title:'Documentation',
+      body:'The chosen concept becomes a full construction set, coordinated with the structural and services engineers.',
+      src:'assets/process/process-documentation.webp',
+      alt:'Printed floor plans and section drawings on a drafting table'
+    },
+    {
+      num:'04', title:'Approval',
+      body:'We manage the planning and building consent process, including any variations or conditions along the way.',
+      src:'assets/process/process-approval.webp',
+      alt:'Planning documents and site plan folder prepared for consent'
+    },
+    {
+      num:'05', title:'Construction',
+      body:'We stay involved through the build, working alongside the builder to keep the design intact as it is constructed.',
+      src:'assets/process/process-construction.webp',
+      alt:'Board-formed concrete formwork and timber on an active build'
+    }
+  ];
+
+  console.log('[Linea][process] using generated process stills');
+
+  var tabs = Array.prototype.slice.call(root.querySelectorAll('[data-process-tabs] [data-step]'));
+  var img = root.querySelector('[data-process-img]');
+  var panel = root.querySelector('[data-process-panel]');
+  var titleEl = root.querySelector('[data-process-title]');
+  var bodyEl = root.querySelector('[data-process-body]');
+  var active = 0;
+  var pending = null;
+  var timer = null;
+
+  if (!tabs.length || !img || !panel || !titleEl || !bodyEl){
+    console.warn('[Linea][process] missing markup, skip init', {
+      tabs:tabs.length, img:!!img, panel:!!panel, title:!!titleEl, body:!!bodyEl
+    });
+    return;
+  }
+
+  console.log('[Linea][process] init', STEPS.length + ' steps');
+
+  function apply(i){
+    var step = STEPS[i];
+    active = i;
+    tabs.forEach(function(tab, ti){
+      var on = ti === i;
+      tab.classList.toggle('is-active', on);
+      tab.setAttribute('aria-selected', on ? 'true' : 'false');
+      tab.tabIndex = on ? 0 : -1;
+    });
+    titleEl.textContent = step.title;
+    bodyEl.textContent = step.body;
+    panel.setAttribute('aria-labelledby', 'process-tab-' + i);
+    img.src = step.src;
+    img.alt = step.alt;
+  }
+
+  function setStep(i, opts){
+    opts = opts || {};
+    if (i < 0 || i >= STEPS.length) return;
+    if (i === active && !opts.force) return;
+
+    // queue rapid clicks instead of dropping them while a fade is running
+    if (timer && !opts.force){
+      pending = i;
+      console.log('[Linea][process] queued step', STEPS[i].num);
+      return;
+    }
+
+    var step = STEPS[i];
+    var instant = reduce || opts.instant;
+    console.log('[Linea][process] step →', step.num, step.title);
+
+    if (instant){
+      apply(i);
+      img.classList.remove('is-swap');
+      panel.classList.remove('is-swap');
+      return;
+    }
+
+    img.classList.add('is-swap');
+    panel.classList.add('is-swap');
+
+    timer = window.setTimeout(function(){
+      timer = null;
+      apply(i);
+      img.classList.remove('is-swap');
+      panel.classList.remove('is-swap');
+      if (pending !== null && pending !== active){
+        var next = pending;
+        pending = null;
+        setStep(next);
+      } else {
+        pending = null;
+      }
+    }, 180);
+  }
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(e){
+      e.preventDefault();
+      var i = parseInt(tab.getAttribute('data-step'), 10);
+      console.log('[Linea][process] click', i);
+      setStep(i);
+    });
+    tab.addEventListener('keydown', function(e){
+      var next = active;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = (active + 1) % STEPS.length;
+      else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next = (active - 1 + STEPS.length) % STEPS.length;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = STEPS.length - 1;
+      else return;
+      e.preventDefault();
+      setStep(next);
+      tabs[next].focus();
+    });
+  });
+
+  if ('IntersectionObserver' in window){
+    var seen = false;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting || seen) return;
+        seen = true;
+        console.log('[Linea][process] in view');
+        io.disconnect();
+      });
+    }, { threshold:0.2 });
+    io.observe(root);
+  }
+
+  setStep(0, { force:true, instant:true });
+})();
+
 /* ---------- mobile menu ---------- */
 var navToggle = document.getElementById('navToggle'), menu = document.getElementById('mobileMenu'), closeBtn = document.getElementById('mobileMenuClose');
 function openMenu(){ if (lenis) lenis.stop(); menu.classList.add('open'); document.body.classList.add('menu-open'); navToggle.setAttribute('aria-expanded','true'); setTimeout(function(){ closeBtn.focus(); }, 60); }

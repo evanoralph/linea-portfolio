@@ -238,34 +238,146 @@
 
   /* ---------- process ---------- */
   #process{ background:var(--bg); }
-  .process-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:64px; position:relative; }
-  .process-head p{ max-width:34ch; color:var(--muted); }
-  .process-row{ display:grid; grid-template-columns:120px 260px 1fr; gap:32px; padding:30px 0; border-top:1px solid var(--line); position:relative; }
-  .process-row:last-child{ border-bottom:1px solid var(--line); }
-  .process-num{ font-family:var(--serif); font-size:28px; line-height:1; color:var(--muted); }
-  .process-row h3{ font-family:var(--serif); font-size:26px; line-height:1.1; }
-  .process-row p{ color:var(--muted); max-width:56ch; }
-  #process .ghost{ right:-10px; top:30px; }
-  @media (max-width:760px){
-    .process-head{ flex-direction:column; align-items:flex-start; }
-    .process-row{ grid-template-columns:56px 1fr; gap:6px 16px; }
-    .process-row p{ grid-column:2; }
+  .process-wrap{ position:relative; }
+  .process-intro{ position:relative; z-index:1; max-width:42ch; margin-bottom:56px; }
+  .process-intro p{ margin-top:18px; color:var(--muted); }
+  .process-stage{
+    position:relative; z-index:1;
+    display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:start;
   }
+  .process-visual{
+    position:relative; overflow:hidden; background:var(--bg-3);
+    aspect-ratio:4 / 3; width:100%;
+  }
+  .process-visual img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+    transition:opacity .35s cubic-bezier(.16,1,.3,1);
+  }
+  .process-visual img.is-swap{ opacity:0; }
+  .process-rail{
+    display:flex; flex-direction:column; gap:28px; min-width:0;
+    /* keep interactive controls above the decorative ghost numeral */
+    position:relative; z-index:2;
+  }
+  .process-steps{
+    display:flex; flex-direction:column; gap:0; border-top:1px solid var(--line);
+  }
+  .process-step{
+    display:flex; align-items:baseline; gap:18px; width:100%;
+    padding:14px 0; border:0; border-bottom:1px solid var(--line);
+    background:transparent; color:var(--muted); cursor:pointer; text-align:left;
+    font:inherit; appearance:none; -webkit-appearance:none;
+    transition:color .25s cubic-bezier(.16,1,.3,1);
+  }
+  .process-step:hover{ color:var(--ink); }
+  .process-step.is-active{ color:var(--ink); }
+  .process-step:active{ transform:translateY(1px); }
+  .process-step-num{
+    font-family:var(--serif); font-size:18px; line-height:1; min-width:1.6em;
+    opacity:.55; flex-shrink:0;
+  }
+  .process-step.is-active .process-step-num{ opacity:1; }
+  .process-step-label{
+    font-family:var(--serif); font-size:clamp(22px,2.2vw,28px); line-height:1.15;
+  }
+  .process-panel{
+    min-height:7.5rem;
+    transition:opacity .3s cubic-bezier(.16,1,.3,1);
+  }
+  .process-panel.is-swap{ opacity:0; }
+  .process-panel h3{
+    font-family:var(--serif); font-size:clamp(24px,2.6vw,32px); line-height:1.15; margin-bottom:12px;
+  }
+  .process-panel p{ color:var(--muted); max-width:38ch; }
+  /* park ghost behind content so it cannot cover the step rail */
+  #process .ghost{ right:0; bottom:-20px; top:auto; z-index:0; opacity:.7; }
+  @media (max-width:760px){
+    .process-intro{ margin-bottom:36px; }
+    .process-stage{ grid-template-columns:1fr; gap:24px; }
+    .process-visual{ aspect-ratio:16 / 11; }
+    .process-steps{
+      flex-direction:row; gap:0; overflow-x:auto; scroll-snap-type:x mandatory;
+      border-top:0; border-bottom:1px solid var(--line);
+      -webkit-overflow-scrolling:touch;
+    }
+    .process-step{
+      flex:0 0 auto; scroll-snap-align:start;
+      padding:12px 18px 14px 0; margin-right:8px;
+      border-bottom:0; border-right:1px solid var(--line);
+    }
+    .process-step:last-child{ border-right:0; }
+    .process-step-label{ font-size:20px; white-space:nowrap; }
+    .process-rail{ gap:20px; }
+    .process-panel{ min-height:0; }
+    #process .ghost{ display:none; }
+  }
+
 
   /* ---------- contact ---------- */
   #contact{ background:var(--bg-3); }
-  .contact-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:60px; align-items:end; position:relative; }
-  .contact-grid p{ color:var(--muted); max-width:40ch; }
-  .contact-email{ display:inline-block; margin-top:30px; font-family:var(--serif); font-size:clamp(22px,2.6vw,34px); border-bottom:1px solid var(--muted); padding-bottom:6px; overflow-wrap:anywhere; transition:border-color .2s; }
+  .contact-wrap{ position:relative; max-width:720px; }
+  .contact-lead{ margin-top:22px; color:var(--muted); max-width:48ch; }
+  .contact-email{
+    display:inline-block; margin-top:36px;
+    font-family:var(--serif); font-size:clamp(24px,3.2vw,40px); line-height:1.15;
+    border-bottom:1px solid var(--muted); padding-bottom:8px; overflow-wrap:anywhere;
+    transition:border-color .2s, color .2s;
+  }
   .contact-email:hover{ border-color:var(--ink); }
-  .contact-details{ margin-top:30px; display:flex; gap:40px; flex-wrap:wrap; font-size:13px; color:var(--muted); }
+  .contact-details{
+    margin-top:28px; display:flex; gap:36px; flex-wrap:wrap;
+    font-size:13px; color:var(--muted);
+  }
+  .contact-details a{ transition:color .2s; }
   .contact-details a:hover{ color:var(--ink); }
-  @media (max-width:760px){ .contact-grid{ grid-template-columns:1fr; gap:10px; } }
+  .contact-include{
+    list-style:none; margin:56px 0 0; padding:0;
+    border-top:1px solid var(--line);
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:0;
+  }
+  .contact-include li{
+    padding:32px 28px 8px;
+    border-right:1px solid var(--line);
+  }
+  .contact-include li:first-child{ padding-left:0; }
+  .contact-include li:last-child{ border-right:0; padding-right:0; }
+  .contact-include strong{
+    display:block; font-family:var(--serif); font-weight:400;
+    font-size:20px; line-height:1.2; margin-bottom:12px; color:var(--ink);
+  }
+  .contact-include span{ display:block; color:var(--muted); font-size:14px; max-width:26ch; line-height:1.55; }
+  @media (max-width:760px){
+    .contact-include{ grid-template-columns:1fr; gap:0; }
+    .contact-include li{
+      border-right:0; border-bottom:1px solid var(--line);
+      padding:28px 0;
+    }
+    .contact-include li:first-child{ padding-left:0; }
+    .contact-include li:last-child{ border-bottom:0; padding-bottom:0; padding-right:0; }
+  }
 
-  footer{ background:var(--bg-3); border-top:1px solid var(--line); padding:32px 0; }
-  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; font-size:12px; color:var(--muted); }
+
+  footer{ background:var(--bg-3); border-top:1px solid var(--line); padding:40px 0 36px; }
+  .footer-inner{ display:flex; flex-direction:column; gap:28px; }
+  .footer-nav{
+    display:flex; flex-wrap:wrap; gap:22px 32px;
+    font-family:var(--serif); font-size:18px; line-height:1.2;
+  }
+  .footer-nav a{ color:var(--muted); transition:color .2s; }
+  .footer-nav a:hover{ color:var(--ink); }
+  .footer-row{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:16px; font-size:12px; color:var(--muted);
+    padding-top:22px; border-top:1px solid var(--line);
+  }
   .footer-links{ display:flex; gap:22px; list-style:none; margin:0; padding:0; }
+  .footer-links a{ transition:color .2s; }
   .footer-links a:hover{ color:var(--ink); }
+  @media (prefers-reduced-motion: reduce){
+    .process-visual img,
+    .process-panel{ transition:none !important; }
+  }
+
 
   .demo-badge{
     position:fixed; left:18px; bottom:calc(18px + var(--safe-b)); z-index:40;
@@ -400,41 +512,90 @@
 
   <!-- ============ 04 · PROCESS ============ -->
   <section id="process" class="section">
-    <div class="wrap">
-      <div class="process-head">
+    <div class="wrap process-wrap">
+      <div class="process-intro">
         <h2 class="big">Process</h2>
-        <p>The same five stages, from first sketch to handover, on every house we design.</p>
+        <p>Five stages from first sketch to handover, the same on every house we design.</p>
       </div>
-      <div class="process-row"><span class="process-num">01</span><h3>Brief</h3><p>We start by understanding the site, the budget, and how you actually want to live in the space, before a single line is drawn.</p></div>
-      <div class="process-row"><span class="process-num">02</span><h3>Concept</h3><p>Early sketches and massing studies test a handful of directions against the site's light, wind and views.</p></div>
-      <div class="process-row"><span class="process-num">03</span><h3>Documentation</h3><p>The chosen concept becomes a full construction set, coordinated with the structural and services engineers.</p></div>
-      <div class="process-row"><span class="process-num">04</span><h3>Approval</h3><p>We manage the planning and building consent process, including any variations or conditions along the way.</p></div>
-      <div class="process-row"><span class="process-num">05</span><h3>Construction</h3><p>We stay involved through the build, working alongside the builder to keep the design intact as it's constructed.</p></div>
+      <div class="process-stage" data-process-stage>
+        <div class="process-visual">
+          <img
+            id="processImg"
+            src="assets/process/process-brief.webp"
+            width="1152"
+            height="864"
+            alt="Site survey, notes and material samples from an early project briefing"
+            data-process-img>
+        </div>
+        <div class="process-rail">
+          <div class="process-steps" role="tablist" aria-label="Design stages" data-process-tabs>
+            <button type="button" role="tab" id="process-tab-0" class="process-step is-active" aria-selected="true" aria-controls="process-panel" tabindex="0" data-step="0">
+              <span class="process-step-num">01</span><span class="process-step-label">Brief</span>
+            </button>
+            <button type="button" role="tab" id="process-tab-1" class="process-step" aria-selected="false" aria-controls="process-panel" tabindex="-1" data-step="1">
+              <span class="process-step-num">02</span><span class="process-step-label">Concept</span>
+            </button>
+            <button type="button" role="tab" id="process-tab-2" class="process-step" aria-selected="false" aria-controls="process-panel" tabindex="-1" data-step="2">
+              <span class="process-step-num">03</span><span class="process-step-label">Documentation</span>
+            </button>
+            <button type="button" role="tab" id="process-tab-3" class="process-step" aria-selected="false" aria-controls="process-panel" tabindex="-1" data-step="3">
+              <span class="process-step-num">04</span><span class="process-step-label">Approval</span>
+            </button>
+            <button type="button" role="tab" id="process-tab-4" class="process-step" aria-selected="false" aria-controls="process-panel" tabindex="-1" data-step="4">
+              <span class="process-step-num">05</span><span class="process-step-label">Construction</span>
+            </button>
+          </div>
+          <div class="process-panel" id="process-panel" role="tabpanel" aria-labelledby="process-tab-0" data-process-panel>
+            <h3 data-process-title>Brief</h3>
+            <p data-process-body>We start by understanding the site, the budget, and how you want to live, before a single line is drawn.</p>
+          </div>
+        </div>
+      </div>
       <span class="ghost" aria-hidden="true">04</span>
     </div>
   </section>
 
   <!-- ============ CONTACT ============ -->
   <section id="contact" class="section">
-    <div class="wrap contact-grid">
+    <div class="wrap contact-wrap">
       <h2 class="big">Start a<br>project</h2>
-      <div>
-        <p>Tell us about your site and what you're hoping to build. We take on a small number of houses a year, so an early conversation helps.</p>
-        <a class="contact-email" href="mailto:hello@linea-studio.example">hello@linea-studio.example</a>
-        <div class="contact-details">
-          <a href="tel:+61355550134">+61 3 5555 0134</a>
-          <span>Based in Melbourne, working across the state</span>
-        </div>
+      <p class="contact-lead">Tell us about your site and what you hope to build. We take on a small number of houses a year, so an early conversation helps.</p>
+      <a class="contact-email" href="mailto:hello@linea-studio.example">hello@linea-studio.example</a>
+      <div class="contact-details">
+        <a href="tel:+61355550134">+61 3 5555 0134</a>
+        <span>Based in Melbourne, working across the state</span>
       </div>
+      <ul class="contact-include">
+        <li>
+          <strong>Site</strong>
+          <span>Address, lot constraints, and any photos or survey you already have.</span>
+        </li>
+        <li>
+          <strong>Brief</strong>
+          <span>How you want to live in the house, and what matters most on this project.</span>
+        </li>
+        <li>
+          <strong>Timing</strong>
+          <span>Rough start window and whether you already have a builder in mind.</span>
+        </li>
+      </ul>
     </div>
   </section>
 
 </main>
 
 <footer>
-  <div class="wrap footer-row">
-    <span>Linea Architecture Studio © 2026</span>
-    <ul class="footer-links"><li><a href="#">Instagram</a></li><li><a href="#">Houzz</a></li></ul>
+  <div class="wrap footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="#studio">Studio</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="footer-row">
+      <span>Linea Architecture Studio © 2026</span>
+      <ul class="footer-links"><li><a href="#">Instagram</a></li><li><a href="#">Houzz</a></li></ul>
+    </div>
   </div>
 </footer>
 
@@ -669,6 +830,157 @@ var rzT; window.addEventListener('resize', function(){ clearTimeout(rzT); rzT = 
 sizeCanvas(); warm(0);
 (function waitFirst(){ if (nearestReady(Math.round(pos))){ document.getElementById('filmLoading').style.display = 'none'; draw(true); } else setTimeout(waitFirst, 50); })();
 setHouse(0); onScroll();
+
+/* ---------- process stage ---------- */
+(function initProcess(){
+  var root = document.getElementById('process');
+  if (!root) return;
+
+  var STEPS = [
+    {
+      num:'01', title:'Brief',
+      body:'We start by understanding the site, the budget, and how you want to live, before a single line is drawn.',
+      src:'assets/process/process-brief.webp',
+      alt:'Site survey, notes and material samples from an early project briefing'
+    },
+    {
+      num:'02', title:'Concept',
+      body:'Early sketches and massing studies test a handful of directions against the site\'s light, wind and views.',
+      src:'assets/process/process-concept.webp',
+      alt:'Graphite massing sketches on trace paper over a site plan'
+    },
+    {
+      num:'03', title:'Documentation',
+      body:'The chosen concept becomes a full construction set, coordinated with the structural and services engineers.',
+      src:'assets/process/process-documentation.webp',
+      alt:'Printed floor plans and section drawings on a drafting table'
+    },
+    {
+      num:'04', title:'Approval',
+      body:'We manage the planning and building consent process, including any variations or conditions along the way.',
+      src:'assets/process/process-approval.webp',
+      alt:'Planning documents and site plan folder prepared for consent'
+    },
+    {
+      num:'05', title:'Construction',
+      body:'We stay involved through the build, working alongside the builder to keep the design intact as it is constructed.',
+      src:'assets/process/process-construction.webp',
+      alt:'Board-formed concrete formwork and timber on an active build'
+    }
+  ];
+
+  console.log('[Linea][process] using generated process stills');
+
+  var tabs = Array.prototype.slice.call(root.querySelectorAll('[data-process-tabs] [data-step]'));
+  var img = root.querySelector('[data-process-img]');
+  var panel = root.querySelector('[data-process-panel]');
+  var titleEl = root.querySelector('[data-process-title]');
+  var bodyEl = root.querySelector('[data-process-body]');
+  var active = 0;
+  var pending = null;
+  var timer = null;
+
+  if (!tabs.length || !img || !panel || !titleEl || !bodyEl){
+    console.warn('[Linea][process] missing markup, skip init', {
+      tabs:tabs.length, img:!!img, panel:!!panel, title:!!titleEl, body:!!bodyEl
+    });
+    return;
+  }
+
+  console.log('[Linea][process] init', STEPS.length + ' steps');
+
+  function apply(i){
+    var step = STEPS[i];
+    active = i;
+    tabs.forEach(function(tab, ti){
+      var on = ti === i;
+      tab.classList.toggle('is-active', on);
+      tab.setAttribute('aria-selected', on ? 'true' : 'false');
+      tab.tabIndex = on ? 0 : -1;
+    });
+    titleEl.textContent = step.title;
+    bodyEl.textContent = step.body;
+    panel.setAttribute('aria-labelledby', 'process-tab-' + i);
+    img.src = step.src;
+    img.alt = step.alt;
+  }
+
+  function setStep(i, opts){
+    opts = opts || {};
+    if (i < 0 || i >= STEPS.length) return;
+    if (i === active && !opts.force) return;
+
+    // queue rapid clicks instead of dropping them while a fade is running
+    if (timer && !opts.force){
+      pending = i;
+      console.log('[Linea][process] queued step', STEPS[i].num);
+      return;
+    }
+
+    var step = STEPS[i];
+    var instant = reduce || opts.instant;
+    console.log('[Linea][process] step →', step.num, step.title);
+
+    if (instant){
+      apply(i);
+      img.classList.remove('is-swap');
+      panel.classList.remove('is-swap');
+      return;
+    }
+
+    img.classList.add('is-swap');
+    panel.classList.add('is-swap');
+
+    timer = window.setTimeout(function(){
+      timer = null;
+      apply(i);
+      img.classList.remove('is-swap');
+      panel.classList.remove('is-swap');
+      if (pending !== null && pending !== active){
+        var next = pending;
+        pending = null;
+        setStep(next);
+      } else {
+        pending = null;
+      }
+    }, 180);
+  }
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(e){
+      e.preventDefault();
+      var i = parseInt(tab.getAttribute('data-step'), 10);
+      console.log('[Linea][process] click', i);
+      setStep(i);
+    });
+    tab.addEventListener('keydown', function(e){
+      var next = active;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = (active + 1) % STEPS.length;
+      else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next = (active - 1 + STEPS.length) % STEPS.length;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = STEPS.length - 1;
+      else return;
+      e.preventDefault();
+      setStep(next);
+      tabs[next].focus();
+    });
+  });
+
+  if ('IntersectionObserver' in window){
+    var seen = false;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting || seen) return;
+        seen = true;
+        console.log('[Linea][process] in view');
+        io.disconnect();
+      });
+    }, { threshold:0.2 });
+    io.observe(root);
+  }
+
+  setStep(0, { force:true, instant:true });
+})();
 
 /* ---------- mobile menu ---------- */
 var navToggle = document.getElementById('navToggle'), menu = document.getElementById('mobileMenu'), closeBtn = document.getElementById('mobileMenuClose');
