@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Linea — Contemporary Residential Architecture</title>
+<meta name="description" content="Linea is a residential architecture studio designing contemporary homes for site, climate, and the way a family actually lives.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="demo-badge">Design concept — sample only</div>
+
+<header id="siteHeader">
+  <div class="wrap nav-row">
+    <a class="logo" href="#film" aria-label="Linea, back to top">
+      <svg viewBox="0 0 26 18" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><polyline points="1,17 1,9 7,4 13,9 13,17"/><rect x="13" y="11" width="12" height="6"/><line x1="0" y1="17" x2="26" y2="17"/></svg>
+      <span>Linea</span>
+    </a>
+    <nav aria-label="Main">
+      <ul class="nav-links">
+        <li><a href="#studio">Studio</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn" href="#contact">Start a project</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mobile-menu-top">
+    <span class="logo"><span>Linea</span></span>
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
+  </div>
+  <nav aria-label="Mobile">
+    <a href="#studio">Studio</a>
+    <a href="#work">Work</a>
+    <a href="#process">Process</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</div>
+
+<main>
+
+  <!-- ============ 01 · FILM: scroll scrubs through the four houses ============ -->
+  <section id="film" aria-label="Four houses by Linea">
+    <div class="stage">
+      <div class="panel">
+        <span class="ghost" aria-hidden="true">LINEA</span>
+        <p class="panel-label">Residential</p>
+        <h1>Houses</h1>
+        <p class="panel-intro">Drawn around how light moves through them. Contemporary homes for site, climate, and the way a family actually lives.</p>
+        <a class="btn" href="#work">See the work</a>
+        <div class="panel-social">
+          <a href="#">Instagram</a>
+          <a href="#">Houzz</a>
+        </div>
+      </div>
+
+      <div class="screen">
+        <canvas id="filmCanvas" role="img" aria-label="Film moving through Sable House, Ridge House, Fold House and Grove House as you scroll"></canvas>
+        <div class="loading" id="filmLoading">Loading film…</div>
+        <p class="scroll-hint" id="scrollHint">Scroll to walk through</p>
+
+        <div class="counter" aria-hidden="true">
+          <span><span id="countNum">01</span><small>/04</small></span>
+          <span class="counter-bar"><i id="countBar"></i></span>
+        </div>
+
+        <div class="strip" id="strip" aria-live="polite">
+          <div>
+            <h3 id="houseName">Sable House</h3>
+            <p id="houseDesc">A poured-concrete courtyard house on a narrow coastal lot, organised around a central garden that draws daylight and sea air into every room.</p>
+          </div>
+          <dl><dt>Site</dt><dd id="houseSite">Coastal infill</dd></dl>
+          <dl><dt>Build</dt><dd id="houseBuild">Poured concrete &amp; timber</dd></dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 · STUDIO ============ -->
+  <section id="studio" class="section">
+    <div class="wrap studio-grid">
+      <div class="studio-img"><img src="assets/stills/studio-grove.webp" width="1152" height="648" alt="Grove House seen between oak trunks"></div>
+      <div class="studio-head">
+        <h2 class="big">The<br>Studio</h2>
+        <p class="studio-quote">Good houses are quiet. They don't need to announce themselves — they just work, for decades, for the people living in them.</p>
+      </div>
+      <div class="studio-body">
+        <div>
+          <p>Linea was founded to design homes that respond directly to their site and their owners, rather than to trend. Every project starts from the same three questions: how does light move through this site, how will this family actually use each room, and what will this house need to be for whoever owns it in twenty years.</p>
+          <dl class="stats">
+            <div><dt>2014</dt><dd>Studio founded</dd></div>
+            <div><dt>50+</dt><dd>Homes completed</dd></div>
+            <div><dt>3</dt><dd>Design awards</dd></div>
+          </dl>
+          <a class="text-link" href="#process">How a project runs</a>
+        </div>
+        <div class="studio-detail"><img src="assets/stills/detail-concrete.webp" width="1152" height="648" alt="Close view of board-formed concrete" loading="lazy"></div>
+      </div>
+      <span class="ghost" aria-hidden="true">02</span>
+    </div>
+  </section>
+
+  <!-- ============ 03 · WORK ============ -->
+  <section id="work" class="section">
+    <div class="wrap work-grid">
+      <div class="cards" id="cards"></div>
+      <div class="work-text">
+        <h2 class="big">Selected<br>Work</h2>
+        <p>A handful of houses, each shaped by its own site and brief rather than a house style. Select one to see it in the film.</p>
+        <a class="btn" href="#contact">Start a project</a>
+      </div>
+      <span class="ghost" aria-hidden="true">03</span>
+    </div>
+  </section>
+
+  <!-- ============ 04 · PROCESS ============ -->
+  <section id="process" class="section">
+    <div class="wrap">
+      <div class="process-head">
+        <h2 class="big">Process</h2>
+        <p>The same five stages, from first sketch to handover, on every house we design.</p>
+      </div>
+      <div class="process-row"><span class="process-num">01</span><h3>Brief</h3><p>We start by understanding the site, the budget, and how you actually want to live in the space, before a single line is drawn.</p></div>
+      <div class="process-row"><span class="process-num">02</span><h3>Concept</h3><p>Early sketches and massing studies test a handful of directions against the site's light, wind and views.</p></div>
+      <div class="process-row"><span class="process-num">03</span><h3>Documentation</h3><p>The chosen concept becomes a full construction set, coordinated with the structural and services engineers.</p></div>
+      <div class="process-row"><span class="process-num">04</span><h3>Approval</h3><p>We manage the planning and building consent process, including any variations or conditions along the way.</p></div>
+      <div class="process-row"><span class="process-num">05</span><h3>Construction</h3><p>We stay involved through the build, working alongside the builder to keep the design intact as it's constructed.</p></div>
+      <span class="ghost" aria-hidden="true">04</span>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="section">
+    <div class="wrap contact-grid">
+      <h2 class="big">Start a<br>project</h2>
+      <div>
+        <p>Tell us about your site and what you're hoping to build. We take on a small number of houses a year, so an early conversation helps.</p>
+        <a class="contact-email" href="mailto:hello@linea-studio.example">hello@linea-studio.example</a>
+        <div class="contact-details">
+          <a href="tel:+61355550134">+61 3 5555 0134</a>
+          <span>Based in Melbourne, working across the state</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>Linea Architecture Studio © 2026</span>
+    <ul class="footer-links"><li><a href="#">Instagram</a></li><li><a href="#">Houzz</a></li></ul>
+  </div>
+</footer>
+
+<!-- Smooth wheel scrolling (MIT). Pinned version. -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
